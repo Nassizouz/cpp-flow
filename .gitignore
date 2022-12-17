@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/map-reduce/build
+/graph-generation/benchmark_files
+/output
+*.vcxproj.user
+**/vcpkg_installed/

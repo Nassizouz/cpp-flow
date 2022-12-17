@@ -1,0 +1,5 @@
+{
+  "name": "cpp-flow-map-reduce",
+  "version-string": "0.1",
+  "dependencies":  [ "benchmark" ]
+}

@@ -1,0 +1,41 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{eb8f3892-577a-4f27-b4dd-633456310cb0}</ProjectGuid>
+  </PropertyGroup>
+	
+  <Target Name="Build">
+    <Message Text="Creating the execution time graph" Importance="high" />
+  </Target>
+  <Target Name="Clean">
+    <Message Text="Cleaning the execution time graph" Importance="high" />
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build">
+  </Target>
+  <Import Project="$(SolutionDir)\Directory.Build.props"/>
+	
+  <PropertyGroup>
+    <IntermediateDir>$(ProjectDir)benchmark_files</IntermediateDir>
+    <OutputDirectory>$(BuildOutputDirectory)benchmarks\</OutputDirectory>
+  </PropertyGroup>
+	
+  <ItemGroup>
+    <Compile Include="graph_generator.py" />
+  </ItemGroup>
+  <Target Name="GenerateBenchmark" AfterTargets="Build" Inputs="$(BuildOutputDirectory)map-reduce.exe" Outputs="$(IntermediateDir)\results.json">
+    <Message Text="Running benchmarking executable" Importance="high" />
+    <MakeDir Directories="$(IntermediateDir)" />
+    <Exec Command="$(BuildOutputDirectory)map-reduce.exe --benchmark_out_format=json --benchmark_out=$(IntermediateDir)\results.json" />
+  </Target>
+  <Target Name="Generate graph" AfterTargets="Build" DependsOnTargets="GenerateBenchmark" Inputs="$(IntermediateDir)\results.json" Outputs="$(OutputDirectory)\valid_data.png;$(OutputDirectory)\bad_data.png;">
+    <Message Text="Generating Graph" Importance="high" />
+    <MakeDir Directories="$(OutputDirectory)" />
+    <Exec Command="python graph_generator.py $(IntermediateDir)\results.json $(OutputDirectory)" />
+  </Target>
+	
+  <Target Name="CleanBenchmark" AfterTargets="Clean">
+    <Message Text="Cleaning the bennchmark" Importance="high" />
+    <RemoveDir Directories="$(IntermediateDir)" />
+    <RemoveDir Directories="$(OutputDirectory)" />
+  </Target>
+
+</Project>

@@ -1,0 +1,5 @@
+<Project>
+ <PropertyGroup>
+   <BuildOutputDirectory>$(SolutionDir)output\</BuildOutputDirectory>
+ </PropertyGroup>
+</Project>

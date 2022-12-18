@@ -1,3 +1,5 @@
+Hey! the repo isn't ready yet, I just made it public so I could write the wiki, please come back later!
+
 # CPP-Flow
 A blog post in a repository form about my experience programming in a ***CPS*** (Continuation-passing style)
 

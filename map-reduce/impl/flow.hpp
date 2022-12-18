@@ -23,7 +23,7 @@ namespace impl
 			struct error {};
 			struct invalid_item: error {};
 
-			FLOW_ACTION
+			FLOW_ACTION const
 			{
 				switch (item.id)
 				{

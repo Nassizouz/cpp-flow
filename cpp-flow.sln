@@ -22,7 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wiki", "wiki", "{4D62CA1D-4
 		wiki\CPS-helpers.md = wiki\CPS-helpers.md
 		wiki\CPP-Flow-Action.md = wiki\CPP-Flow-Action.md
 		wiki\Home.md = wiki\Home.md
+		wiki\Issues.md = wiki\Issues.md
 		wiki\Specific-actions-implementation-guide.md = wiki\Specific-actions-implementation-guide.md
+		wiki\_Sidebar.md = wiki\_Sidebar.md
 	EndProjectSection
 EndProject
 Global

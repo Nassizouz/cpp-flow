@@ -226,16 +226,16 @@ Let's iterate again over the issues that I had with the former implementation ju
 * *revalidating the state*: when the successful state continuation procedure is called we don't need to check the validity of the class, when its called we can be sure that we have a valid resource that can be used, and in error cases, we are free to forward the same error forward or to modify it
 
 ## So CPS is good just for Resource types creation?
-Dude (or dudette)! it has other benefits other than just code correctness for resource creation, jump to the wiki and see what it has to offer! (First, let me write the wiki)
+Dude (or dudette)! it has other benefits other than just code correctness for resource creation, see the wiki and see what it has to offer! (First, let me write the wiki)
 
 ## Woof, your code seems a bit complicated, can you explain a bit about the implementation details?
 I have written an implementation info wiki pages just for! maybe you should start with [CPS helpers](https://github.com/WubbaLubba/cpp-flow/wiki/CPS-helpers)
 
 ## Yo That looks great! I can't wait to start writing CPS Style!
-Wait wait wait, there are some major practical issues with CPS please read the wiki before jumping to conclusions
+Wait wait wait, there are some major practical issues with CPS please read the [wiki about the issues that CPS](https://github.com/WubbaLubba/cpp-flow/wiki/Issues) have before jumping to conclusions
 
 ## I saw your implementation and it looks a bit cumbersome cant it be simpler?
-Well if you have any advice about how to make this code please let me know, also jump to the wiki page called "C++ features I want to see", there's a compilation of features that could make CPS simpler
+Well if you have any advice about how to make this code please let me know, also you should look at the wiki page called "C++ features I want to see", there's a compilation of features that could make CPS simpler
 
 ## Can I buy you a coffee?
 No. I buy my own coffee.

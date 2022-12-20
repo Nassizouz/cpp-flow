@@ -229,7 +229,7 @@ Let's iterate again over the issues that I had with the former implementation ju
 Dude (or dudette)! it has other benefits other than just code correctness for resource creation, jump to the wiki and see what it has to offer! (First, let me write the wiki)
 
 ## Woof, your code seems a bit complicated, can you explain a bit about the implementation details?
-The implementation guide is in the works right now I'll put a link here when I'm done
+I have written an implementation info wiki pages just for! maybe you should start with [CPS helpers](https://github.com/WubbaLubba/cpp-flow/wiki/CPS-helpers)
 
 ## Yo That looks great! I can't wait to start writing CPS Style!
 Wait wait wait, there are some major practical issues with CPS please read the wiki before jumping to conclusions

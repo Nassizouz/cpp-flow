@@ -100,7 +100,7 @@ this also forces us to implement "unique style" resource as an "optional resourc
 * *revalidating the state*: The result of the resource creation needs to be tested at least twice, once in the wrapper, and once in the caller, basically every link in the call chain needs to test for an error after calling the next link in the chain
 
 ## So CPS solves those problems?
-I believe so, lets's look at the code!
+I believe so, lets look at the code!
 
 ```cpp
 // The function that we are about to wrap
@@ -110,6 +110,7 @@ int /* error_code */ create_resource_c(void** resource);
 struct Resource
 {
 	Resource(void* res);
+	Resource() = delete;
 	Resource(const Resource&) = delete;
 	Resource& operator= (const Resource&) = delete;
 	~Resource();

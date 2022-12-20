@@ -121,7 +121,6 @@ struct Resource
 struct SharedResrouce
 {
 	SharedResrouce(void* res);
-	SharedResrouce(Resource);
 	SharedResrouce(const SharedResrouce&);
 	SharedResrouce(SharedResrouce&&);
 	~SharedResrouce();
@@ -133,7 +132,6 @@ struct OptionalResource
 {
 	OptionalResource();
 	OptionalResource(void* res);
-	OptionalResource(Resource);
 
 	OptionalResource(const OptionalResource&) = delete;
 	OptionalResource(OptionalResource&&);
@@ -141,7 +139,6 @@ struct OptionalResource
 	~OptionalResource();
 
 	OptionalResource& operator= (void* res);
-	OptionalResource& operator= (Resource res);
 	OptionalResource& operator= (OptionalResource res);
 
 	operator bool () const;
@@ -158,11 +155,14 @@ struct OptionalSharedResource
 {
 	OptionalSharedResource();
 	OptionalSharedResource(void* res);
-	OptionalSharedResource(Resource);
 	OptionalSharedResource(SharedResrouce);
 	OptionalSharedResource(const OptionalSharedResource&);
 	OptionalSharedResource(OptionalSharedResource&&);
 	~OptionalSharedResource();
+
+	OptionalResource& operator= (void* res);
+	OptionalResource& operator= (SharedResrouce res);
+	OptionalResource& operator= (OptionalSharedResource res);
 
 	operator bool () const;
 

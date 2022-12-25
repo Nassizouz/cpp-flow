@@ -1,7 +1,7 @@
 Hey! the repo isn't ready yet, I just made it public so I could write the wiki, please come back later!
 
 # CPP-Flow
-A blog post in a repository form about my experience programming in a ***CPS*** (Continuation-passing style)
+This repo is my non-academic thesis about my experience programming in a ***CPS*** (Continuation-passing style)
 
 ## What's CPS exactly?
 To tell you the truth, I found out that CPS had a name (and a [wiki page](https://en.wikipedia.org/wiki/Continuation-passing_style)) while writing this readme, so I don't have much dry information to give you, but, I can show an example!\

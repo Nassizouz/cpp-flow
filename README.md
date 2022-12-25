@@ -232,10 +232,7 @@ Dude (or dudette)! it has other benefits other than just code correctness for re
 I have written an implementation info wiki pages just for! maybe you should start with [CPS helpers](https://github.com/WubbaLubba/cpp-flow/wiki/CPS-helpers)
 
 ## Yo That looks great! I can't wait to start writing CPS Style!
-Wait wait wait, there are some major practical issues with CPS please read the [wiki about the issues that CPS](https://github.com/WubbaLubba/cpp-flow/wiki/Issues) have before jumping to conclusions
-
-## I saw your implementation and it looks a bit cumbersome cant it be simpler?
-Well if you have any advice about how to make this code please let me know, also you should look at the wiki page called "C++ features I want to see", there's a compilation of features that could make CPS simpler
+Wait wait wait, there are some major practical issues with CPS please read the [wiki about the issues with CPS](https://github.com/WubbaLubba/cpp-flow/wiki/Issues) have before jumping to conclusions
 
 ## Can I buy you a coffee?
 No. I buy my own coffee.

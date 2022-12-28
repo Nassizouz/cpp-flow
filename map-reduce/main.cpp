@@ -1,3 +1,5 @@
+#include <format>
+
 #include <benchmark/benchmark.h>
 
 #include "impl\flow.hpp"
@@ -53,34 +55,18 @@ const auto test_classic = [](auto& bmark, auto dataSample)
 	}
 };
 
+void register_benchmarks(const auto& test, const auto& sample)
+{
+	static std::vector<std::string> namesGlobalStorage{};
+	const auto& flowName = namesGlobalStorage.emplace_back(std::vformat(R"({{ "type": {}, "valid_data": {}, "count": {} }})", std::make_format_args("\"flow\"", test.valid, test.count)));
+	benchmark::RegisterBenchmark(flowName.c_str(), test_flow, sample.data());
+	const auto& classicName = namesGlobalStorage.emplace_back(std::vformat(R"({{ "type": {}, "valid_data": {}, "count": {} }})", std::make_format_args("\"classic\"", test.valid, test.count)));
+	benchmark::RegisterBenchmark(classicName.c_str(), test_classic, sample.data());
+}
+
 int main(int argc, char** argv)
 {
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": true, "count": 0 })", test_flow, data::samples::empty.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": true, "count": 0 })", test_classic, data::samples::empty.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": true, "count": 1 })", test_flow, data::samples::valid1.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": true, "count": 1 })", test_classic, data::samples::valid1.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": false, "count": 1 })", test_flow, data::samples::invalid1.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": false, "count": 1 })", test_classic, data::samples::invalid1.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": true, "count": 10 })", test_flow, data::samples::valid10.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": true, "count": 10 })", test_classic, data::samples::valid10.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": false, "count": 10 })", test_flow, data::samples::invalid10.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": false, "count": 10 })", test_classic, data::samples::invalid10.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": true, "count": 100 })", test_flow, data::samples::valid100.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": true, "count": 100 })", test_classic, data::samples::valid100.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": false, "count": 100 })", test_flow, data::samples::invalid100.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": false, "count": 100 })", test_classic, data::samples::invalid100.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": true, "count": 1000 })", test_flow, data::samples::valid1000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": true, "count": 1000 })", test_classic, data::samples::valid1000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": false, "count": 1000 })", test_flow, data::samples::invalid1000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": false, "count": 1000 })", test_classic, data::samples::invalid1000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": true, "count": 10000 })", test_flow, data::samples::valid10000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": true, "count": 10000 })", test_classic, data::samples::valid10000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": false, "count": 10000 })", test_flow, data::samples::invalid10000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": false, "count": 10000 })", test_classic, data::samples::invalid10000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": true, "count": 100000 })", test_flow, data::samples::valid100000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": true, "count": 100000 })", test_classic, data::samples::valid100000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "flow", "valid_data": false, "count": 100000 })", test_flow, data::samples::invalid100000.data());
-	benchmark::RegisterBenchmark(R"({ "type": "classic", "valid_data": false, "count": 100000 })", test_classic, data::samples::invalid100000.data());
+	for (const auto& [test, sample]: data::samples) register_benchmarks(test, sample);
 
 	benchmark::Initialize(&argc, argv);
 	benchmark::RunSpecifiedBenchmarks();

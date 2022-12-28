@@ -2,25 +2,27 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{eb8f3892-577a-4f27-b4dd-633456310cb0}</ProjectGuid>
   </PropertyGroup>
-	
+
   <Target Name="Build">
     <Message Text="Creating the execution time graph" Importance="high" />
   </Target>
   <Target Name="Clean">
-    <Message Text="Cleaning the execution time graph" Importance="high" />
+	  <Message Text="Cleaning the execution time graph" Importance="high" />
   </Target>
-  <Target Name="Rebuild" DependsOnTargets="Clean;Build">
-  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
   <Import Project="$(SolutionDir)\Directory.Build.props"/>
-	
-  <PropertyGroup>
-    <IntermediateDir>$(ProjectDir)benchmark_files</IntermediateDir>
-    <OutputDirectory>$(BuildOutputDirectory)benchmarks\</OutputDirectory>
-  </PropertyGroup>
 	
   <ItemGroup>
     <Compile Include="graph_generator.py" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <IntermediateDir>$(ProjectDir)benchmark_files</IntermediateDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(OutputDirectory)'==''">
+    <OutputDirectory>$(BuildOutputDirectory)benchmarks\</OutputDirectory>
+  </PropertyGroup>
+
   <Target Name="GenerateBenchmark" AfterTargets="Build" Inputs="$(BuildOutputDirectory)map-reduce.exe" Outputs="$(IntermediateDir)\results.json">
     <Message Text="Running benchmarking executable" Importance="high" />
     <MakeDir Directories="$(IntermediateDir)" />

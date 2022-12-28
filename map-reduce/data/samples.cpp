@@ -53,16 +53,21 @@ namespace
 
 }
 
-std::vector<uint8_t> data::samples::empty = generate_valid(0);
-std::vector<uint8_t> data::samples::valid1 = generate_valid(1);
-std::vector<uint8_t> data::samples::invalid1 = generate_invalid(1);
-std::vector<uint8_t> data::samples::valid10 = generate_valid(10);
-std::vector<uint8_t> data::samples::invalid10 = generate_invalid(10);
-std::vector<uint8_t> data::samples::valid100 = generate_valid(100);
-std::vector<uint8_t> data::samples::invalid100 = generate_invalid(100);
-std::vector<uint8_t> data::samples::valid1000 = generate_valid(1000);
-std::vector<uint8_t> data::samples::invalid1000 = generate_invalid(1000);
-std::vector<uint8_t> data::samples::valid10000 = generate_valid(10000);
-std::vector<uint8_t> data::samples::invalid10000 = generate_invalid(10000);
-std::vector<uint8_t> data::samples::valid100000 = generate_valid(100000);
-std::vector<uint8_t> data::samples::invalid100000 = generate_invalid(100000);
+std::map<data::test, std::vector<uint8_t>> data::samples = 
+{
+	{ data::test{ 0, true }, generate_valid(0) },
+	{ data::test{ 1, true }, generate_valid(1) },
+	{ data::test{ 1, false }, generate_invalid(1) },
+	{ data::test{ 10, true }, generate_valid(10) },
+	{ data::test{ 10, false }, generate_invalid(10) },
+	{ data::test{ 100, true }, generate_valid(100) },
+	{ data::test{ 100, false }, generate_invalid(100) },
+	{ data::test{ 1000, true }, generate_valid(1000) },
+	{ data::test{ 1000, false }, generate_invalid(1000) },
+	{ data::test{ 10000, true }, generate_valid(10000) },
+	{ data::test{ 10000, false }, generate_invalid(10000) },
+	{ data::test{ 100000, true }, generate_valid(100000) },
+	{ data::test{ 100000, false }, generate_invalid(100000) },
+	{ data::test{ 1000000, true }, generate_valid(1000000) },
+	{ data::test{ 1000000, false }, generate_invalid(1000000) }
+};

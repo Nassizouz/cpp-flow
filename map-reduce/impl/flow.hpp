@@ -97,14 +97,14 @@ namespace impl
 		public:
 			template <typename... ResultArgTs>
 			reduce_result(reduce_link const * &chain, ResultArgTs&&... resultArgs):
-			reduce_link(chain),
-			ResultT(std::forward<ResultArgTs>(resultArgs)...)
+				reduce_link(chain),
+				ResultT(std::forward<ResultArgTs>(resultArgs)...)
 			{}
 
 			using ResultT::str_size;
 
 		private:
-			virtual void apply(char* buffer) const final
+			void apply(char* buffer) const final
 			{
 				buffer -= ResultT::str_size();
 				ResultT::to_string(buffer);

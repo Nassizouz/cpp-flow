@@ -85,7 +85,7 @@ Resource create_resource()
 ```
 
 Well, I have multiple issues with this snippet:
-* *Inability to pick the directly use the storage method of your choosing*: What if we don't want a `unique` style resource, maybe we want a shared resource or even a raw, of course, you can reset the unique resource, and move it to the appropriate smart resource, but then we are facing the issue of code correctness where instead of the code simply doing\
+* *Inability to pick the storage method of your choosing*: What if we don't want a `unique` style resource, maybe we want a shared resource or even a raw, of course, you can reset the unique resource, and move it to the appropriate smart resource, but then we are facing the issue of code correctness where instead of the code simply doing\
 `Create resource` -> `Put in the appropriate smart resource` -> `Do whatever`\
 we are implementing the following code:\
 `Create unique resource` -> `Steal resource to the desired smart resource` -> `Do whatever` -> `Destruct the unnecessary unique resource`

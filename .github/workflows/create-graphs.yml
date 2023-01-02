@@ -1,0 +1,46 @@
+name: MSBuild
+
+on:
+  push:
+    branches: [ "develop" ]
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: .
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Release
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Restore NuGet packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m ${{env.SOLUTION_FILE_PATH}} -target:graph-generation:Rebuild /p:OutputDirectory=.\benchies
+
+    - name: Report system info
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: Get-ComputerInfo -Property CsManufacturer,CsModel,CsTotalPhysicalMemory,CsProcessors > .\benchies\systeminfo.txt
+      
+    - name: Simple commit
+      uses: zwaldowski/git-commit-action@v1
+      with:
+       commit_message: Add benchmarks for commit ${{ github.sha }}

@@ -32,6 +32,9 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m ${{env.SOLUTION_FILE_PATH}} -target:graph-generation:Rebuild /p:OutputDirectory= $env:GITHUB_WORKSPACE\benchies
 
+    - name: Pleaseseeses
+      run: echo ${{env.GITHUB_WORKSPACE}} ${{env.GITHUB_WORKSPACE}}\benchies\systeminfo.txt $GITHUB_WORKSPACE $GITHUB_WORKSPACE\benchies\systeminfo.txt ${{env.GITHUB_WORKSPACE}} ${{env.GITHUB_WORKSPACE}}\benchies\systeminfo.txt
+
     - name: Report system info
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: Get-ComputerInfo -Property CsManufacturer,CsModel,CsTotalPhysicalMemory,CsProcessors >  $env:GITHUB_WORKSPACE\benchies\systeminfo.txt

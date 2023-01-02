@@ -26,14 +26,14 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
+    - name: Pleaseseeses
+      run: echo ${{env.GITHUB_WORKSPACE}} ${{env.GITHUB_WORKSPACE}}\benchies\systeminfo.txt $GITHUB_WORKSPACE $GITHUB_WORKSPACE\benchies\systeminfo.txt
+
     - name: Build
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m ${{env.SOLUTION_FILE_PATH}} -target:graph-generation:Rebuild /p:OutputDirectory= $env:GITHUB_WORKSPACE\benchies
-
-    - name: Pleaseseeses
-      run: echo ${{env.GITHUB_WORKSPACE}} ${{env.GITHUB_WORKSPACE}}\benchies\systeminfo.txt $GITHUB_WORKSPACE $GITHUB_WORKSPACE\benchies\systeminfo.txt ${{env.GITHUB_WORKSPACE}} ${{env.GITHUB_WORKSPACE}}\benchies\systeminfo.txt
 
     - name: Report system info
       working-directory: ${{env.GITHUB_WORKSPACE}}

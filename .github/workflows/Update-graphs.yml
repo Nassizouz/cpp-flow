@@ -53,6 +53,7 @@ jobs:
       run: |
         git config --local user.name 'GitHub Actions'
         git config --local user.email 'actions@github.com'
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
     - name: Add changes
       working-directory: ${{ github.workspace }}\wiki

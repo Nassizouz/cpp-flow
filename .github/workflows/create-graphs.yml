@@ -18,10 +18,20 @@ permissions:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: checkout vcpkg
+      uses: actions/checkout@v3
+      with: 
+       repository: https://github.com/Microsoft/vcpkg.git
+
+    - name: run-vcpkg
+      uses: lukka/run-vcpkg@v10.7
+      with:
+       runVcpkgInstall: true
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
@@ -30,7 +40,7 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m ${{env.SOLUTION_FILE_PATH}} -target:graph-generation:Rebuild /p:OutputDirectory=${{ github.workspace }}\benchies
+      run: msbuild /m ${{env.SOLUTION_FILE_PATH}} /p:Configuration=Release /p:Platform=x64 -target:graph-generation /p:OutputDirectory=${{ github.workspace }}\benchies
 
     - name: Report system info
       working-directory: ${{env.GITHUB_WORKSPACE}}

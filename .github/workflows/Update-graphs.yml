@@ -7,7 +7,7 @@ env:
   BUILD_CONFIGURATION: Release
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -45,8 +45,6 @@ jobs:
   publish:
     runs-on: windows-latest
     needs: build
-    permissions:
-      contents: write
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3

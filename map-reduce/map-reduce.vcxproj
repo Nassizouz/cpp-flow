@@ -37,7 +37,7 @@
     <IntDir>build\</IntDir>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
-    <VcpkgTriplet>x64-windows-static</VcpkgTriplet>
+    <VcpkgTriplet>x64-windows-static-rel</VcpkgTriplet>
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <ItemDefinitionGroup>

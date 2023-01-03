@@ -26,7 +26,7 @@ jobs:
     - name: checkout vcpkg
       uses: actions/checkout@v3
       with: 
-       repository: https://github.com/Microsoft/vcpkg.git
+       repository: Microsoft/vcpkg
 
     - name: run-vcpkg
       uses: lukka/run-vcpkg@v10.7

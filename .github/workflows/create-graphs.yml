@@ -18,22 +18,22 @@ permissions:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
 
-    - name: checkout vcpkg
-      uses: actions/checkout@v3
-      with: 
-       repository: Microsoft/vcpkg
-       path: vcpkg
+#    - name: checkout vcpkg
+#      uses: actions/checkout@v3
+#      with: 
+#       repository: Microsoft/vcpkg
+#       path: vcpkg
 
-    - name: run-vcpkg
-      uses: lukka/run-vcpkg@v10.7
-      with:
-       runVcpkgInstall: true
-       doNotUpdateVcpkg: true
+#    - name: run-vcpkg
+#      uses: lukka/run-vcpkg@v10.7
+#      with:
+#       runVcpkgInstall: true
+#       doNotUpdateVcpkg: true
 
     - name: Integrate vcpkg
       run: vcpkg integrate install

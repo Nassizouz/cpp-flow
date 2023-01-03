@@ -1,8 +1,6 @@
-name: Create benchmark graphs
+name: Update benchmark graphs
 
-on:
-  push:
-    branches: [ "action-setup" ]
+on: workflow_dispatch 
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -22,18 +20,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
-#    - name: checkout vcpkg
-#      uses: actions/checkout@v3
-#      with: 
-#       repository: Microsoft/vcpkg
-#       path: vcpkg
-
-#    - name: run-vcpkg
-#      uses: lukka/run-vcpkg@v10.7
-#      with:
-#       runVcpkgInstall: true
-#       doNotUpdateVcpkg: true
+      with:
+       submodules: true
 
     - name: Integrate vcpkg
       run: vcpkg integrate install
@@ -45,16 +33,29 @@ jobs:
       run: python -m pip install matplotlib
 
     - name: Build
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{ github.workspace }}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m ${{env.SOLUTION_FILE_PATH}} /p:Configuration=Release /p:Platform=x64 -target:graph-generation /p:OutputDirectory=${{ github.workspace }}\benchies
 
     - name: Report system info
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{ github.workspace }}
       run: Get-ComputerInfo -Property CsManufacturer,CsModel,CsTotalPhysicalMemory,CsProcessors >  ${{ github.workspace }}\benchies\systeminfo.txt
-      
-    - name: Simple commit
-      uses: zwaldowski/git-commit-action@v1
-      with:
-       commit_message: Add benchmarks for commit ${{ github.sha }}
+
+    - name: Update wiki repo
+      run: git submodule update --remote
+  
+    - name: Update benchmark files
+      run: move -Force ${{ github.workspace }}\benchies\* .\wiki\
+
+    - name: Add changes
+      working-directory: ${{ github.workspace }}\wiki
+      run: git add .
+
+    - name: Commit changes
+      working-directory: ${{ github.workspace }}\wiki
+      run: git commit -m "Update graphs"
+
+    - name: Push changes
+      working-directory: ${{ github.workspace }}\wiki
+      run: git push origin master

@@ -35,6 +35,9 @@ jobs:
        runVcpkgInstall: true
        doNotUpdateVcpkg: true
 
+    - name: Integrate vcpkg
+      run: vcpkg integrate install
+
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 

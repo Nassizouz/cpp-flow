@@ -3,12 +3,7 @@ name: Update benchmark graphs
 on: workflow_dispatch 
 
 env:
-  # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: .
-
-  # Configuration type to build.
-  # You can convert this to a build matrix if you need coverage of multiple configuration types.
-  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
 
 permissions:
@@ -19,9 +14,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-       submodules: true
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
     - name: Integrate vcpkg
       run: vcpkg integrate install
@@ -36,33 +30,23 @@ jobs:
       working-directory: ${{ github.workspace }}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m ${{env.SOLUTION_FILE_PATH}} /p:Configuration=Release /p:Platform=x64 -target:graph-generation /p:OutputDirectory=${{ github.workspace }}\benchies
+      run: msbuild /m ${{env.SOLUTION_FILE_PATH}} /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=x64 -target:graph-generation /p:OutputDirectory=${{ github.workspace }}\benchies
 
     - name: Report system info
       working-directory: ${{ github.workspace }}
       run: Get-ComputerInfo -Property CsManufacturer,CsModel,CsTotalPhysicalMemory,CsProcessors >  ${{ github.workspace }}\benchies\systeminfo.txt
 
-    - name: Update wiki repo
-      run: git submodule update --remote
-  
-    - name: Update benchmark files
-      run: move -Force ${{ github.workspace }}\benchies\* .\wiki\
-
     - name: Setup git
-      working-directory: ${{ github.workspace }}\wiki
       run: |
         git config --local user.name 'GitHub Actions'
         git config --local user.email 'actions@github.com'
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/WubbaLubba/cpp-flow.wiki.git
+        git remote set-url origin https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}
 
     - name: Add changes
-      working-directory: ${{ github.workspace }}\wiki
       run: git add .
 
     - name: Commit changes
-      working-directory: ${{ github.workspace }}\wiki
       run: git commit -m "Update graphs"
 
     - name: Push changes
-      working-directory: ${{ github.workspace }}\wiki
-      run: git push origin master
+      run: git push origin develop

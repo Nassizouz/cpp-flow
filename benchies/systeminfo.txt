@@ -1,0 +1,5 @@
+
+CsManufacturer        CsModel         CsTotalPhysicalMemory CsProcessors
+--------------        -------         --------------------- ------------
+Microsoft Corporation Virtual Machine            7515721728 {Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz}
+

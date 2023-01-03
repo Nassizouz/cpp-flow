@@ -48,6 +48,12 @@ jobs:
     - name: Update benchmark files
       run: move -Force ${{ github.workspace }}\benchies\* .\wiki\
 
+    - name: Setup git
+      working-directory: ${{ github.workspace }}\wiki
+      run: |
+        git config --local user.name 'GitHub Actions'
+        git config --local user.email 'actions@github.com'
+
     - name: Add changes
       working-directory: ${{ github.workspace }}\wiki
       run: git add .

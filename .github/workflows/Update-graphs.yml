@@ -44,6 +44,7 @@ jobs:
     
   publish:
     runs-on: windows-latest
+    needs: build
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3

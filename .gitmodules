@@ -1,3 +1,4 @@
 [submodule "wiki"]
 	path = wiki
 	url = git@github.com:WubbaLubba/cpp-flow.wiki.git
+	branch = master

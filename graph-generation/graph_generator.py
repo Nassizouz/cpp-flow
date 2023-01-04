@@ -17,7 +17,6 @@ def plot_graph(data, outpath):
 
   bars = plots[1].bar(
     dataCount, 
-    # [ (y["classic"] / y["flow"]) - 1 if y["classic"] > y["flow"] else -((y["flow"] / y["classic"]) - 1) for y in data.values() ], 
     [ (y["classic"] - y["flow"]) / y["flow"] for y in data.values() ],
     tick_label = list(data.keys()))
   plots[1].bar_label(bars)
